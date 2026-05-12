@@ -761,20 +761,25 @@ uninstall_mode() {
 #  MAIN — Command dispatch
 # ==============================================================
 
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+  show_help; exit 0
+fi
+
+# Auto-detect install: named install.sh or first arg is "install"
+if [[ "$SCRIPT_NAME" == "install"* ]] || [[ "$SCRIPT_NAME" == "install.sh" ]] || [[ "${1:-}" == "install" ]]; then
+  [[ "${1:-}" == "install" ]] && shift || true
+  install_mode
+  exit 0
+fi
+
 COMMAND="${1:-launch}"
 
-# Auto-detect: if this script is named "install" or first arg is "install", run install
-if [[ "$SCRIPT_NAME" == "install"* ]] || [[ "$SCRIPT_NAME" == "install.sh" ]]; then
-  install_mode
-  exit 0
+# If first arg starts with '-' and isn't -h/--help, it's a claude flag — route to launch
+if [[ "$COMMAND" == -* ]]; then
+  COMMAND="launch"
+else
+  shift || true
 fi
-
-if [[ "$COMMAND" == "install" ]]; then
-  install_mode
-  exit 0
-fi
-
-shift || true
 
 case "$COMMAND" in
   launch)
@@ -791,8 +796,10 @@ case "$COMMAND" in
     uninstall_mode
     ;;
   *)
-    printf "${RED}Unknown command: %s${NC}\n" "$COMMAND"
-    printf "Run: claude-launcher -h\n"
-    exit 1
+    # Unknown non-flag: pass through as claude args in launch mode
+    set -- "$COMMAND" "$@"
+    resolve_config; detect_parser; validate_config
+    check_required_fields; check_permissions
+    launch_mode "$@"
     ;;
 esac

@@ -765,8 +765,10 @@ if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
   show_help; exit 0
 fi
 
-# Auto-detect install: named install.sh or first arg is "install"
-if [[ "$SCRIPT_NAME" == "install"* ]] || [[ "$SCRIPT_NAME" == "install.sh" ]] || [[ "${1:-}" == "install" ]]; then
+# Auto-detect install: named install.sh, first arg is "install", or piped via curl|bash
+if [[ "$SCRIPT_NAME" == "install"* ]] || [[ "$SCRIPT_NAME" == "install.sh" ]] \
+   || [[ "${1:-}" == "install" ]] \
+   || [[ ( "$SCRIPT_NAME" == "bash" || "$SCRIPT_NAME" == "-bash" || "$SCRIPT_NAME" == "sh" ) && -z "${1:-}" ]]; then
   [[ "${1:-}" == "install" ]] && shift || true
   install_mode
   exit 0

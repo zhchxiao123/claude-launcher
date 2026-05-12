@@ -11,8 +11,15 @@ The installer auto-detects missing components and offers to install them via you
 ## Quick Start
 
 ```bash
+curl -fsSL https://raw.githubusercontent.com/zhchxiao123/claude-launcher/main/install.sh | bash
+claude-launcher
+```
+
+Or clone and install:
+
+```bash
+git clone https://github.com/zhchxiao123/claude-launcher.git && cd claude-launcher
 ./install.sh
-# Edit ~/.config/claude-launcher/presets.json to fill in your API keys
 claude-launcher
 ```
 

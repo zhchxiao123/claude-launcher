@@ -11,8 +11,15 @@
 ## 快速开始
 
 ```bash
+curl -fsSL https://raw.githubusercontent.com/zhchxiao123/claude-launcher/main/install.sh | bash
+claude-launcher
+```
+
+或者克隆后安装：
+
+```bash
+git clone https://github.com/zhchxiao123/claude-launcher.git && cd claude-launcher
 ./install.sh
-# 编辑 ~/.config/claude-launcher/presets.json，填入你的 API Key
 claude-launcher
 ```
 

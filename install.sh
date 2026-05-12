@@ -483,8 +483,12 @@ if [[ -n "$rc" ]]; then
   fi
 fi
 
-printf "\n${GREEN}Done.${NC} Run: ${BOLD}claude-launcher${NC}"
-[[ -z "$rc" ]] && printf "  (or %s)" "$LAUNCHER"
+printf "\n${GREEN}Done.${NC}\n"
+if [[ -n "$rc" ]]; then
+  printf "Run: ${BOLD}source %s${NC}  (then: ${BOLD}claude-launcher${NC})\n" "$rc"
+else
+  printf "Run directly: ${BOLD}%s${NC}\n" "$LAUNCHER"
+fi
 printf "\nEdit presets: %s\n" "$CONFIG_FILE"
 exit 0
 

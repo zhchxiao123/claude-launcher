@@ -4,6 +4,8 @@ Switch Claude Code model presets from an interactive terminal menu.
 
 A single script. No dependencies beyond bash and jq (or python3).
 
+The installer auto-detects missing components and offers to install them via your system package manager (Homebrew, apt, yum, dnf, pacman, apk).
+
 [中文文档](README.zh.md)
 
 ## Quick Start

@@ -4,6 +4,8 @@
 
 单脚本，除 bash 和 jq（或 python3）外无其他依赖。
 
+安装脚本会自动检测缺失组件，并提供通过系统包管理器一键安装（支持 Homebrew / apt / yum / dnf / pacman / apk）。
+
 [English](README.md)
 
 ## 快速开始
